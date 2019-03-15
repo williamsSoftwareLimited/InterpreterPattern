@@ -22,7 +22,17 @@ namespace InterpreterPattern
             Console.WriteLine($"The outcome of X and (Y or Z) is {booleanExpression.Evaluate(context)}");
 
             booleanExpression = new AndExpression(x, new AndExpression(y, new OrExpression(x, z)));
-            Console.WriteLine($"The outcome of X and (Y and (X OR Z)) is {booleanExpression.Evaluate(context)}");
+            Console.WriteLine($"The outcome of X and (Y and (X or Z)) is {booleanExpression.Evaluate(context)}");
+
+            // using Parser
+            Parser parser = new Parser();
+            Console.WriteLine("Using the Parser where AND has precedence.");
+            booleanExpression = parser.Parse("X and Y or Z");
+            Console.WriteLine($"Using the Parser the outcome of X and Y or Z is {booleanExpression.Evaluate(context)}");
+
+            booleanExpression = parser.Parse("X and Y and X or Z");
+            Console.WriteLine($"Using the Parser the outcome of X and Y and X or Z is {booleanExpression.Evaluate(context)}");
+
 
             Console.ReadKey();
         }
